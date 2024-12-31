@@ -1,0 +1,25 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+<div class="container" >
+<h1>This is Signin page</h1>
+
+
+<form action="{% url "Signin" %}" method="post">
+    {% for field in form %}
+            
+    <div class="row mb-3">
+        <label for="{{ field.auto_id }}" class="col-sm-2 col-form-label" > {{ field.label }}</label>
+        <div class="col-sm-10">
+        {{ field }}
+        </div>
+    
+        <div class="errorlist"> {{ field.errors }} </div>
+    </div>
+
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary" data-bs-toggle="button">Submit</button>
+</form>
+</div>
+{% endblock  %}

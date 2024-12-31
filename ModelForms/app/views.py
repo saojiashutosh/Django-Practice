@@ -16,11 +16,11 @@ def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST,request.FILES)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            name = form.cleaned_data['name']
-            contact = form.cleaned_data['contact']
-            image = form.cleaned_data['image']
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            name = form.cleaned_data.get('name')
+            contact = form.cleaned_data.get('contact')
+            image = form.cleaned_data.get('image')
 
             hashed_password = make_password(password)
 
