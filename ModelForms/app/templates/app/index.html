@@ -1,0 +1,18 @@
+{% extends "app/base.html" %}
+
+
+{% block content %}
+    <div class="container" >
+       <h1>{{word}}</h1>
+       {% for field in data %}
+       <div>
+        <p>Name : {{field.name}}</p>
+        <p>Contact : {{field.contact}}</p>
+        <div>
+           <p>Image :</p> 
+           <img src="{{ field.image.url }}" alt="Image" />
+        </div>
+       </div>
+       {% endfor %}
+    </div>
+{% endblock  %}

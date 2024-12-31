@@ -1,0 +1,14 @@
+{% extends "app/base.html" %}
+
+
+{% block content %}
+    <div class="container" >
+        {{word}}
+        <form action='{% url "Signup" %}' method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit"> Submit</button>
+
+        </form>
+    </div>
+{% endblock  %}

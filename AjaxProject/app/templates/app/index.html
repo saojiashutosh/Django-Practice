@@ -1,0 +1,56 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showname</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form id="post-name">
+        {% comment %} <form action='/showname/' method='post'> {% endcomment %}
+        {% csrf_token %}
+        <input type="text" name="myname" id="myname" >
+        <input type="submit" value="submit">
+    </form>
+    <li><p id="showname">{{ name }}</p></li>
+
+    <button id="clickme">clickme</button>
+    <p id='showajaxresponse'></p>
+
+    <script>
+        $( "#clickme" ).on( "click", function( event ) {
+            alert("Hello");
+            $.ajax({
+                url: "/ajaxclick",
+                data: {
+                  zipcode: 97201
+                },
+                success: function( result ) {
+                  $( "#showajaxresponse" ).html( result );
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).on('submit', '#post-name', function(e){
+            e.preventDefault();
+        
+            $.ajax({
+                type:'POST',
+                url:'/showname/',
+                data:{
+                    'myname': $('#myname').val(),
+                    'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    $('#showname').html(data)
+                }
+            });
+        });
+        </script>
+</body>
+</html>
