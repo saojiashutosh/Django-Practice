@@ -1,15 +1,17 @@
 from django.shortcuts import render,redirect
 from django.http import *
 from .models import user
+from .models import blog
 from .forms import UserForm ,SigninForm,BlogForm
 from django.contrib.auth.hashers import make_password,check_password
  
 # Create your views here.
-
 def home(request):
     data = user.objects.all()
+    blogs = blog.objects.all()
     word = "Hello"
-    return render(request,"app/index.html",{'data':data ,'word':word})
+    return render(request, "app/index.html", {'data': data, 'word': word, 'blogs': blogs})
+
 
 
 def signup(request):
@@ -52,7 +54,8 @@ def signin(request):
                 # Check if password matches
                 if check_password(password, obj.password):
                     print("Password match!")
-                    return HttpResponse(f"Welcome {username}")
+                    request.session['username']=username
+                    return redirect("/")
                 else:
                     print("Invalid password!")
                     form.add_error('password', "Invalid password.")
@@ -65,9 +68,24 @@ def signin(request):
 
     return render(request, "app/signin.html", {'form': form})
 
-def blog(request):
+def logout(request):
+    request.session.flush()
+    print("Session cleared:", request.session.items())
+    return redirect('Signin')
+
+
+def blogPage(request):
     if request.method == "POST":
         form = BlogForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            content = form.cleaned_data.get('content')
+            username = request.session.get('username')
+            user_obj = user.objects.get(username=username)
+            obj = blog(title = title,content = content,name = user_obj)
+            obj.save()
+
+            return redirect('/')
 
     form = BlogForm()
     return render(request,"app/blog.html",{'form':form})

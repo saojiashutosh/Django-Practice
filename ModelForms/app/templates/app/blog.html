@@ -1,7 +1,7 @@
 {% extends "app/base.html" %}
 {% block content %}
-    <form action=='{% url "Blog" %}' method="post">
-
+    <form action='{% url "Blog" %}' method="post">
+        {% csrf_token %}
         {{form.as_p}}
 
         <button type="submit" class="btn btn-primary">Submit</button>
