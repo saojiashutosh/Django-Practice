@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Reivew</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+    {% for user in object_list %}
+    <tr>
+        <td>{{user.name}}</td>
+        <td>{{user.review}}</td>
+        <td>{{user.rating}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>
