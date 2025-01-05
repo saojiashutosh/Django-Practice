@@ -1,0 +1,17 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+<div class="card-container">
+    <div class="card">
+       <div class="card-image">
+          {% comment %} <p><strong>Image:</strong></p> {% endcomment %}
+          <img src="{{ obj.image.url }}" alt="Image" />
+       </div>
+       <div class="card-content">
+             <p><strong>Name:</strong> {{ obj.name }}</p>
+             <p><strong>Contact:</strong> {{ obj.contact }}</p>
+             <p><strong>Number of Blog Created :</strong>{{no_blogs}}</p>
+       </div>
+    </div>
+ </div>
+{% endblock  %}

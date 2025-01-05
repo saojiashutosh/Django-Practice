@@ -9,11 +9,11 @@ from django.contrib.auth.hashers import make_password,check_password
 def home(request):
     data = user.objects.all()
     blogs = blog.objects.all()
-    word = "Hello"
+    word = "Blogs for You"
     return render(request, "app/index.html", {'data': data, 'word': word, 'blogs': blogs})
 
 
-
+# this is user registration view
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST,request.FILES)
@@ -28,10 +28,10 @@ def signup(request):
 
             obj = user(username=username,name=name, contact=contact, password=hashed_password ,image = image)
             obj.save()
-
+            request.session['username']=username
             return redirect("/")
         else:
-             return HttpResponse("Ooops ! An Error Occured !!!")
+             form.add_error("An error Occured during Signup")
         
 
     form = UserForm()
@@ -72,7 +72,7 @@ def logout(request):
     request.session.flush()
     print("Session cleared:", request.session.items())
     return redirect('Signin')
-
+# end of registration
 
 def blogPage(request):
     if request.method == "POST":
@@ -80,12 +80,24 @@ def blogPage(request):
         if form.is_valid():
             title = form.cleaned_data.get('title')
             content = form.cleaned_data.get('content')
-            username = request.session.get('username')
-            user_obj = user.objects.get(username=username)
-            obj = blog(title = title,content = content,name = user_obj)
-            obj.save()
+            if request.session.get('username'):
+                username = request.session.get('username')
+                user_obj = user.objects.get(username=username)
+                obj = blog(title = title,content = content,name = user_obj)
+                obj.save()
 
-            return redirect('/')
+                return redirect('/')
+            else:
+                form.add_error(None, "You have to Signin First to Post the blog")
+                print("Error added to form:", form.errors) 
 
     form = BlogForm()
     return render(request,"app/blog.html",{'form':form})
+
+
+def details(request):
+    username = request.session.get('username')
+    obj = user.objects.get(username = username)
+    no_blogs = blog.objects.filter(name=obj).count()
+
+    return render(request,"app/details.html",{'obj':obj,'no_blogs':no_blogs})

@@ -2,34 +2,18 @@
 
 
 {% block content %}
-   <div class="container">
-      <h1>{{ word }}</h1>
-      {% comment %} <div class="card-container">
-         {% for field in data %}
-         <div class="card">
-            <div class="card-image">
-               {% comment %} <p><strong>Image:</strong></p> {% endcomment %}
-               {% comment %} <img src="{{ field.image.url }}" alt="Image" />
-            </div>
-            <div class="card-content">
-                  <p><strong>Name:</strong> {{ field.name }}</p>
-                  <p><strong>Contact:</strong> {{ field.contact }}</p>
-            </div>
+   <h1>{{ word }}</h1>
+   <div class="card-container">
+      {% for blog in blogs %}
+      <div class="card">
+         <div class="card-content">
+               <p><strong>{{ blog.title }}</strong></p>
+               <p>{{blog.content}}</p>
+               <p><strong>Posted By : </strong> {{ blog.name }}</p>
+               <p><strong>Posted On : </strong> {{ blog.pub_date }}</p>
          </div>
-         {% endfor %}
-      </div> {% endcomment %}
-      <div class="card-container">
-         {% for blog in blogs %}
-         <div class="card">
-            <div class="card-content">
-                  <p><strong>{{ blog.title }}</strong></p>
-                  <p>{{blog.content}}</p>
-                  <p><strong>Posted By : </strong> {{ blog.name }}</p>
-                  <p><strong>Posted On : </strong> {{ blog.pub_date }}</p>
-            </div>
-         </div>
-         {% endfor %}
       </div>
+      {% endfor %}
    </div>
 
 {% endblock  %}

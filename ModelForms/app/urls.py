@@ -10,6 +10,7 @@ urlpatterns = [
    path('signin/',views.signin,name='Signin'),
    path('blogs/',views.blogPage,name='Blog'),
    path('logout/',views.logout,name='Logout'),
+   path('details/',views.details,name="Details")
 ]
 
 if settings.DEBUG:
