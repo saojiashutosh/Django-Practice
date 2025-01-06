@@ -1,6 +1,4 @@
-import os
-import random
-import string
+import os ,random ,string
 from django.shortcuts import render
 
 # Create your views here.
