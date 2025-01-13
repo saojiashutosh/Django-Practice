@@ -18,4 +18,4 @@ class blog(models.Model):
     name =  models.ForeignKey(user, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.title}    {self.pub_date}"
+        return f"{self.title}   {self.name}    {self.pub_date}"
