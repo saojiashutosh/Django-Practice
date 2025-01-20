@@ -11,6 +11,7 @@ def home(request):
     blogs = blog.objects.all()
     word = "Blogs for You"
     return render(request, "app/index.html", {'data': data, 'word': word, 'blogs': blogs})
+    
 
 
 # this is user registration view
